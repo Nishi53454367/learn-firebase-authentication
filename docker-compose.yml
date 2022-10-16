@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    volumes:
+      - ./app/frontend:/app
+    ports:
+      - 3000:3000
+    stdin_open: true
+    tty: true
+    command: yarn dev
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    volumes:
+      - ./app/backend:/usr/src/app
+    ports:
+      - 8080:8080
+    stdin_open: true
+    tty: true
+    command: yarn start

@@ -1,0 +1,4 @@
+FROM node:16.18.0-alpine
+WORKDIR /app
+RUN apk update && \
+  npm install -g create-next-app
