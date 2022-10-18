@@ -4,7 +4,16 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Firebase Authentication
-import { getAuth, createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  UserCredential,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  User,
+} from "firebase/auth";
+import { useState, useEffect } from "react";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -35,4 +44,40 @@ export const createUser = async (email: string, password: string): Promise<UserC
     console.error(`エラーコード: ${errorCode} エラーメッセージ: ${errorMessage}`);
   }
   return userCredential;
+}
+
+/** ログイン処理 */
+export const login = async (email: string, password: string): Promise<UserCredential | null> => {
+  let userCredential = null;
+  try {
+    userCredential = await signInWithEmailAndPassword(auth, email, password);
+  } catch (error: any) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error(`エラーコード: ${errorCode} エラーメッセージ: ${errorMessage}`);
+  }
+  return userCredential;
+}
+
+/** ログアウト処理 */
+export const logout = async () => await signOut(auth);
+
+/** ログイン状態確認カスタムフック */
+export const useMe = (): { user: User | null, loading: boolean } => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // ログイン状態
+        setUser(user);
+      } else {
+        // ログアウト状態
+        setUser(null);
+      }
+      // 処理完了
+      setLoading(false);
+    })
+  }, []);
+  return { user, loading };
 }
