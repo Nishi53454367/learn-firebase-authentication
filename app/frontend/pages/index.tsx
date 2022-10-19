@@ -23,7 +23,7 @@ const Home: NextPage = () => {
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
-        <Link href="/auth">
+        <Link href="/home">
           <a>🔥FireBase認証へ🔥</a>
         </Link>
 

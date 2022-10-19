@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import styles from '../styles/Home.module.css';
@@ -9,8 +9,7 @@ const handleSubmit = async (event: any) => {
   event.preventDefault();
   const { email, password } = event.target.elements;
   // FireBaseへログイン
-  const user = await login(String(email.value), String(password.value));
-  console.log(user);
+  await login(String(email.value), String(password.value));
 };
 
 /** ログイン */

@@ -8,8 +8,7 @@ const handleSubmit = async (event: any) => {
   event.preventDefault();
   const { email, password } = event.target.elements;
   // FireBaseへユーザ登録
-  const user = await createUser(String(email.value), String(password.value));
-  console.log(user);
+  await createUser(String(email.value), String(password.value));
 };
 
 /** ユーザ登録 */
