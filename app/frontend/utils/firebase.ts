@@ -12,6 +12,9 @@ import {
   signOut,
   onAuthStateChanged,
   User,
+  GoogleAuthProvider,
+  signInWithPopup,
+  linkWithPopup,
 } from "firebase/auth";
 import { useState, useEffect } from "react";
 
@@ -30,6 +33,10 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+
+// Google Auth Setting
+const provider = new GoogleAuthProvider();
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 // -- ここまではFireBaseの設定(お作法通り) --
 
@@ -51,6 +58,25 @@ export const login = async (email: string, password: string): Promise<UserCreden
   let userCredential = null;
   try {
     userCredential = await signInWithEmailAndPassword(auth, email, password);
+  } catch (error: any) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error(`エラーコード: ${errorCode} エラーメッセージ: ${errorMessage}`);
+  }
+  return userCredential;
+}
+
+/** ログイン処理(Google認証) */
+export const googleLogin = async (): Promise<UserCredential | null> => {
+  let userCredential = null;
+  try {
+    if (auth.currentUser) {
+      // Googleアカウントと紐付け
+      userCredential = await linkWithPopup(auth.currentUser, provider);
+    } else {
+      // ログイン
+      userCredential = await signInWithPopup(auth, provider);
+    }
   } catch (error: any) {
     const errorCode = error.code;
     const errorMessage = error.message;

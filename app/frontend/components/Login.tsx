@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import styles from '../styles/Home.module.css';
-import { login } from '../utils/firebase';
+import { login, googleLogin } from '../utils/firebase';
 
 /** ログイン処理 */
 const handleSubmit = async (event: any) => {
@@ -30,6 +30,9 @@ const Login = () => {
           </p>
           <p>
             <button type="submit">ログイン</button>
+          </p>
+          <p>
+            <button type="button" onClick={async () => await googleLogin()}>Googleログイン</button>
           </p>
         </form>
         <Link href="/signup">

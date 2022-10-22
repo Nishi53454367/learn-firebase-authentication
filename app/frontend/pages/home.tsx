@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../styles/Home.module.css';
 import { useAuthContext } from '../components/AuthContext';
 import Login from '../components/Login';
-import { logout } from '../utils/firebase';
+import { googleLogin, logout } from '../utils/firebase';
 
 /** FireBase認証 */
 const Home = () => {
@@ -18,6 +18,9 @@ const Home = () => {
       </Head>
       <main className={styles.main}>
         {user && (<div>{`${user.email}でログインしています。`}</div>)}
+        <p>
+          <button type="button" onClick={async () => await googleLogin()}>Googleアカウントと紐付け</button>
+        </p>
         <p>
           <button onClick={() => logout()}>ログアウト</button>
         </p>
