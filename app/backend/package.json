@@ -12,6 +12,7 @@
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "start": "ts-node-dev server.ts"
+    "start": "ts-node-dev server.ts",
+    "build": "ts-node server.ts"
   }
 }

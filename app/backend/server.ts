@@ -12,5 +12,9 @@ app.get('/', (req: any, res: { send: (arg0: string) => void; }) => {
   res.send('Hello World');
 });
 
+app.get('/auth', (req: any, res: { send: (arg0: string) => void; }) => {
+  res.send('Hello World Auth');
+});
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
