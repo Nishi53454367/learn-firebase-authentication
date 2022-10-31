@@ -47,6 +47,7 @@ app.post('/auth', async (req: any, res: {
   const token = authHeader.split(' ')[1];
   try {
     const result = await firebase.auth().verifyIdToken(token);
+    // show uid
     const uid = result.uid;
     console.log(uid);
   } catch (error) {
