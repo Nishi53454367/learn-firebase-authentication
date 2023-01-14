@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css';
 import { useAuthContext } from '../components/AuthContext';
 import Login from '../components/Login';
 import { googleLogin, logout } from '../utils/firebase';
-import { get, getAuth } from '../utils/api';
+import { get, getAuth, getNotices, getShop } from '../utils/api';
 
 /** FireBase認証 */
 const Home = () => {
@@ -26,7 +26,10 @@ const Home = () => {
           <button type="button" onClick={async () => await get()}>API実行(認証なし)</button>
         </p>
         <p>
-          <button type="button" onClick={async () => await getAuth(await user.getIdToken())}>API実行(認証あり)</button>
+          <button type="button" onClick={async () => await getShop(await user.getIdToken())}>ショップ情報取得(APIGatewayお試し)</button>
+        </p>
+        <p>
+          <button type="button" onClick={async () => await getNotices(await user.getIdToken())}>お知らせ情報取得(APIGatewayお試し)</button>
         </p>
         <p>
           <button onClick={() => logout()}>ログアウト</button>
